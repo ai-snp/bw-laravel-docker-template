@@ -7,7 +7,7 @@ use App\Todo;
 
 class TodoController extends Controller
 {
-        public function index()
+    public function index()
     {
         $todo = new Todo();
         $todos = $todo->all();
@@ -18,7 +18,19 @@ class TodoController extends Controller
     }
 
     public function create()
-{
-    return view('todo.create');
-}
+    {
+        return view('todo.create');
+    }
+
+
+    public function store(Request $request)
+    {
+        $content = $request->input('content');
+
+        $todo = new Todo();
+        $todo->content = $content;
+        $todo->save();
+
+        return redirect()->route('todo.index'); // 追記
+    }
 }

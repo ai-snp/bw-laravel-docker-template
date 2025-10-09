@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Todo;
 
@@ -15,7 +14,6 @@ class TodoController extends Controller
 
 
         return view('todo.index', ['todos' => $todos]);
-        //viewにhtmlファイルの処理を渡す
 
     }
 
@@ -34,5 +32,14 @@ class TodoController extends Controller
 
         return redirect()->route('todo.index');
     }
+
+    public function show($id)
+    {
+        $model = new Todo();
+        $todo = $model->find($id);
+
+        return view('todo.show', ['todo' => $todo]);
+    }
+
 }
 

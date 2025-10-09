@@ -9,11 +9,13 @@ class TodoController extends Controller
 {
     public function index()
     {
+
         $todo = new Todo();
         $todos = $todo->all();
 
 
         return view('todo.index', ['todos' => $todos]);
+        //viewにhtmlファイルの処理を渡す
 
     }
 
@@ -25,7 +27,6 @@ class TodoController extends Controller
     public function store(Request $request)
     {
         $inputs = $request->all();
-        dd($inputs);
 
         $todo = new Todo();
         $todo->fill($inputs);
@@ -34,3 +35,4 @@ class TodoController extends Controller
         return redirect()->route('todo.index');
     }
 }
+

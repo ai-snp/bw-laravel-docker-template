@@ -17,8 +17,7 @@ class TodoController extends Controller
     {
 
         $todos = $this->todo->all();
-
-
+ 
         return view('todo.index', ['todos' => $todos]);
 
     }
@@ -30,24 +29,26 @@ class TodoController extends Controller
 
     public function store(TodoRequest $request)
     {
+        // TodoRequestとかみどりのきじゅつなに？
         $inputs = $request->all();
-
+ 
         $this->todo->fill($inputs);
         $this->todo->save();
 
         return redirect()->route('todo.index');
     }
 
+
     public function show($id)
     {
-        $todo = Todo::find($id);
+        $todo = $this->todo->find($id);
 
         return view('todo.show', ['todo' => $todo]);
     }
 
     public function edit($id)
     {
-        $todo = Todo::find($id);
+        $todo = $this->todo->find($id);
         return view('todo.edit', ['todo' => $todo]);
     }
 
@@ -56,25 +57,17 @@ class TodoController extends Controller
     {
         $inputs = $request->all();
 
-        $todo = Todo::find($id);
+        $todo = $this->todo->find($id);
         $todo->fill($inputs);
         $todo->save();
 
         return redirect()->route('todo.show', $todo->id);
     }
 
-    public function messages()
-    {
-        return [
-            // 入力欄のname属性.ルール => メッセージ
-            'content.required' => 'ToDoが入力されていません。',
-            'content.max' => 'ToDoは :max 文字以内で入力してください。',
-        ];
-    }
 
     public function delete($id)
     {
-        $todo = Todo::find($id);
+        $todo = $this->todo->find($id);
         $todo->delete();
 
         return redirect()->route('todo.index');
@@ -83,4 +76,3 @@ class TodoController extends Controller
 
 
 }
-
